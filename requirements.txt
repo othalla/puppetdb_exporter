@@ -1,1 +1,2 @@
 pypuppetdb==0.3.3
+hug==2.4.1
