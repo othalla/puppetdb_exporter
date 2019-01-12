@@ -2,5 +2,5 @@ import hug
 
 
 @hug.get('/metrics')
-def metrics():
+def metrics() -> str:
     return ""
