@@ -1,16 +1,18 @@
 from configparser import ConfigParser
 from os import environ
+from typing import List, Type
 
 CONFIG = None
 
 
-def get_config(configuration_parser=ConfigParser):
-    configuration = configuration_parser()
+def get_config(
+        config_parser: Type[ConfigParser] = ConfigParser) -> ConfigParser:
+    configuration = config_parser()
     configuration.read(_read_config_files())
-    global CONFIG
-    return {}
+    return configuration
 
 
-def _read_config_files() -> str:
+def _read_config_files() -> List[str]:
     if 'CONFIG_FILE' in environ:
-        return environ['CONFIG_FILE']
+        return [environ['CONFIG_FILE']]
+    raise Exception
