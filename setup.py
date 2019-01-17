@@ -24,7 +24,8 @@ setuptools.setup(
         "Topic :: Software Development",
     ],
     install_requires=[
-        "pypuppetdb==0.3.3"
+        "pypuppetdb==0.3.3",
+        "prometheus-client==0.5.0",
     ],
     extras_require={},
     scripts=['scripts/type_checker.sh'],
