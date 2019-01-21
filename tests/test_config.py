@@ -1,7 +1,9 @@
 from configparser import ConfigParser
 from unittest.mock import create_autospec, patch
 
-from puppetdb_exporter.config import get_config
+import pytest
+
+from puppetdb_exporter.config import get_config, ConfigurationException
 
 
 class TestConfig:
@@ -22,3 +24,9 @@ class TestConfig:
              '.config/puppetdb_exporter/config.ini',
              'config.ini']
         )
+
+    @staticmethod
+    def test_it_cannot_load_configuration_without_main_section():
+        with patch.dict('os.environ', {'CONFIG_FILE': '/path/config/ko'}):
+            with pytest.raises(ConfigurationException):
+                get_config()
