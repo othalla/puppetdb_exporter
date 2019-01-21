@@ -30,3 +30,10 @@ class TestConfig:
         with patch.dict('os.environ', {'CONFIG_FILE': '/path/config/ko'}):
             with pytest.raises(ConfigurationException):
                 get_config()
+
+    @staticmethod
+    def test_it_cannot_load_configuration_without_puppetdb_settings():
+        config_parser = create_autospec(ConfigParser)
+        config_parser.return_value.has_option.return_value = False
+        with pytest.raises(ConfigurationException):
+            get_config(config_parser=config_parser)

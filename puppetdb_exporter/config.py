@@ -15,6 +15,8 @@ def get_config(
     configuration.read(_read_config_files())
     if not configuration.has_section('main'):
         raise ConfigurationException
+    if not configuration.has_option('main', 'puppetdb_host'):
+        raise ConfigurationException
     return configuration
 
 
