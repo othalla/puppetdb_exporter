@@ -5,10 +5,6 @@ from typing import List, Type
 CONFIG = None
 
 
-class ConfigurationException(Exception):
-    pass
-
-
 def get_config(
         config_parser: Type[ConfigParser] = ConfigParser) -> ConfigParser:
     configuration = config_parser()
@@ -19,4 +15,6 @@ def get_config(
 def _read_config_files() -> List[str]:
     if 'CONFIG_FILE' in environ:
         return [environ['CONFIG_FILE']]
-    raise ConfigurationException
+    return ['/etc/puppetdb_exporter/config.ini',
+            '.config/puppetdb_exporter/config.ini',
+            'config.ini']

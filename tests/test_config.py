@@ -1,9 +1,7 @@
 from configparser import ConfigParser
 from unittest.mock import create_autospec, patch
 
-import pytest
-
-from puppetdb_exporter.config import get_config, ConfigurationException
+from puppetdb_exporter.config import get_config
 
 
 class TestConfig:
@@ -16,6 +14,11 @@ class TestConfig:
                 ['/path/config'])
 
     @staticmethod
-    def test_with_no_configuration_provided():
-        with pytest.raises(ConfigurationException):
-            get_config()
+    def test_it_load_config_file_from_default_files():
+        config_parser = create_autospec(ConfigParser)
+        get_config(config_parser=config_parser)
+        config_parser.return_value.read.assert_called_once_with(
+            ['/etc/puppetdb_exporter/config.ini',
+             '.config/puppetdb_exporter/config.ini',
+             'config.ini']
+        )
