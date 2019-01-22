@@ -3,6 +3,15 @@ from os import environ
 from typing import List, Type
 
 CONFIG = None
+SETTINGS = [
+    'puppetdb_host',
+    'puppetdb_port',
+    'puppetdb_ssl_verify',
+    'puppetdb_key',
+    'puppetdb_cert',
+    'puppetdb_timeout',
+    'puppetdb_proto',
+]
 
 
 class ConfigurationException(Exception):
@@ -15,8 +24,9 @@ def get_config(
     configuration.read(_read_config_files())
     if not configuration.has_section('main'):
         raise ConfigurationException
-    if not configuration.has_option('main', 'puppetdb_host'):
-        raise ConfigurationException
+    for setting in SETTINGS:
+        if not configuration.has_option('main', setting):
+            raise ConfigurationException
     return configuration
 
 
