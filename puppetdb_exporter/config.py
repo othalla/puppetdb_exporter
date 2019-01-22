@@ -2,7 +2,6 @@ from configparser import ConfigParser
 from os import environ
 from typing import List, Type
 
-CONFIG = None
 SETTINGS = [
     'puppetdb_host',
     'puppetdb_port',
