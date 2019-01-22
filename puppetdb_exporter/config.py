@@ -35,7 +35,8 @@ def _read_config_files() -> List[str]:
 
 def _check_config_settings(configuration: ConfigParser) -> None:
     if not configuration.has_section('main'):
-        raise ConfigurationException
+        raise ConfigurationException('Missing main section in config file.')
     for setting in SETTINGS:
         if not configuration.has_option('main', setting):
-            raise ConfigurationException
+            raise ConfigurationException(f'Missing {setting} setting in '
+                                         'config file.')
