@@ -6,7 +6,7 @@ from prometheus_client import Gauge
 from puppetdb_exporter.puppetdb import get_nodes
 
 
-gauge_nodes = Gauge('puppetdb_nodes_registered', 'Description of gauge')
+GAUGE_NODES = Gauge('puppetdb_nodes_registered', 'Description of gauge')
 
 
 class MetricsRender(Thread):
@@ -19,4 +19,4 @@ class MetricsRender(Thread):
 
     def _generate_metrics(self):
         nodes = self._node_provider()
-        gauge_nodes.set(len(nodes))
+        GAUGE_NODES.set(len(nodes))
