@@ -18,4 +18,5 @@ class MetricsRender(Thread):
         self._generate_metrics()
 
     def _generate_metrics(self):
-        self._node_provider()
+        nodes = self._node_provider()
+        gauge_nodes.set(len(nodes))
