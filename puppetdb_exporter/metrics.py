@@ -17,6 +17,6 @@ class MetricsRender(Thread):
     def run(self) -> None:
         self._generate_metrics()
 
-    def _generate_metrics(self):
+    def _generate_metrics(self) -> None:
         nodes = self._node_provider()
         GAUGE_NODES.set(len(nodes))
