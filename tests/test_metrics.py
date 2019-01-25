@@ -7,6 +7,7 @@ from puppetdb_exporter.metrics import MetricsRender
 NODE1 = MagicMock(name='node1', status='unchanged')
 NODE2 = MagicMock(name='node2', status='changed')
 NODE3 = MagicMock(name='node3', status='changed')
+BAD_NODE = MagicMock(name='node3', status='unknown')
 
 
 class TestMetricsRender:
@@ -30,3 +31,10 @@ class TestMetricsRender:
                                          {'status': 'unchanged'}) == 1
         assert REGISTRY.get_sample_value('puppetdb_nodes_status',
                                          {'status': 'failed'}) == 0
+
+    @staticmethod
+    def test_with_unknown_node_status():
+        get_nodes = MagicMock(name='get_config',
+                              return_value=[BAD_NODE])
+        metrics = MetricsRender(get_nodes)
+        metrics.run()

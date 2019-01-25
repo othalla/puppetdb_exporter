@@ -30,6 +30,9 @@ class MetricsRender(Thread):
             'unreported': 0,
         }
         for node in nodes:
-            status_values[node.status] += 1
+            try:
+                status_values[node.status] += 1
+            except KeyError:
+                continue
         for status_value in status_values:
             GAUGE_STATUS.labels(status=status_value).set(status_values[status_value])
