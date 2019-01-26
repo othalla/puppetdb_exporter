@@ -28,5 +28,4 @@ setuptools.setup(
         "prometheus-client==0.5.0",
     ],
     extras_require={},
-    scripts=['scripts/type_checker.sh'],
 )
