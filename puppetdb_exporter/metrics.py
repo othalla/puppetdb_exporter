@@ -1,6 +1,7 @@
-from typing import Callable
+from typing import Callable, Iterator
 from threading import Thread
 
+from pypuppetdb.types import Node
 from prometheus_client import Gauge
 
 from puppetdb_exporter.puppetdb import get_nodes
@@ -11,7 +12,9 @@ GAUGE_STATUS = Gauge('puppetdb_nodes_status', 'desc', labelnames=['status'])
 
 
 class MetricsRender(Thread):
-    def __init__(self, node_provider: Callable = get_nodes) -> None:
+    def __init__(
+            self,
+            node_provider: Callable[[], Iterator[Node]] = get_nodes) -> None:
         Thread.__init__(self)
         self._node_provider = node_provider
 
