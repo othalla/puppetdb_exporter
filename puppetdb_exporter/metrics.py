@@ -22,8 +22,8 @@ class MetricsRender(Thread):
         self._generate_metrics()
 
     def _generate_metrics(self) -> None:
+        node_number = 0
         nodes = self._node_provider()
-        GAUGE_NODES.set(len(nodes))
         status_values = {
             'changed': 0,
             'failed': 0,
@@ -33,9 +33,11 @@ class MetricsRender(Thread):
             'unreported': 0,
         }
         for node in nodes:
+            node_number += 1
             try:
                 status_values[node.status] += 1
             except KeyError:
                 continue
+        GAUGE_NODES.set(node_number)
         for status, value in status_values.items():
             GAUGE_STATUS.labels(status=status).set(value)
