@@ -1,9 +1,12 @@
-from pypuppetdb import connect
+from typing import Any, Union, Iterator
+
+from pypuppetdb import connect, BaseAPI
+from pypuppetdb.types import Node
 
 from puppetdb_exporter.config import get_config
 
 
-def _get_puppetdb_connexion():
+def _get_puppetdb_connexion() -> BaseAPI:
     config = get_config()
     return connect(host=config['PUPPETDB_HOST'],
                    port=config['PUPPETDB_PORT'],
@@ -14,6 +17,6 @@ def _get_puppetdb_connexion():
                    protocol=config['PUPPETDB_PROTO'],)
 
 
-def get_nodes():
+def get_nodes() -> Union[Any, Iterator[Node]]:
     database = _get_puppetdb_connexion()
     return database.nodes()
