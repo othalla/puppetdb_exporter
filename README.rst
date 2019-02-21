@@ -19,3 +19,18 @@ Configuration reads one of these files in this order:
 - `config.ini`
 
 You can specify a custom config file by setting the CONFIG_FILE environment var.
+
+Example
+~~~~~~~
+
+.. code-block:: ini
+
+   [main]
+   puppetdb_host = puppetdb.example.local
+   puppetdb_port = 8080
+   puppetdb_ssl_verify = True
+   puppetdb_key = None
+   puppetdb_cert = path/to/cert
+   puppetdb_timeout = 5
+   puppetdb_proto = None
+
