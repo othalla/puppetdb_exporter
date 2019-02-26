@@ -9,7 +9,6 @@ def _loop() -> None:
     while True:
         metrics = MetricsRender()
         metrics.start()
-        print('sleep 10')
         time.sleep(15)
         metrics.join()
 
