@@ -31,6 +31,5 @@ Example
    puppetdb_ssl_verify = True
    puppetdb_key = None
    puppetdb_cert = path/to/cert
-   puppetdb_timeout = 5
    puppetdb_proto = None
 

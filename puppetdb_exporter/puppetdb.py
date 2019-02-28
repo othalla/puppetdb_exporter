@@ -13,8 +13,7 @@ def _get_puppetdb_connexion() -> BaseAPI:
                    ssl_verify=config['PUPPETDB_SSL_VERIFY'],
                    ssl_key=config['PUPPETDB_KEY'],
                    ssl_cert=config['PUPPETDB_CERT'],
-                   timeout=config['PUPPETDB_TIMEOUT'],
-                   protocol=config['PUPPETDB_PROTO'],)
+                   protocol=config['PUPPETDB_PROTO'])
 
 
 def get_nodes() -> Union[Any, Iterator[Node]]:

@@ -8,7 +8,6 @@ SETTINGS = [
     'puppetdb_ssl_verify',
     'puppetdb_key',
     'puppetdb_cert',
-    'puppetdb_timeout',
     'puppetdb_proto',
 ]
 
