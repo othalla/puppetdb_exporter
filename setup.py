@@ -29,4 +29,7 @@ setuptools.setup(
         "prometheus-client==0.5.0",
     ],
     extras_require={},
+    entry_points={
+        'console_scripts': ['puppetdb_exporter=puppetdb_exporter.__init__:main']
+    }
 )
