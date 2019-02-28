@@ -28,8 +28,8 @@ Example
    [main]
    puppetdb_host = puppetdb.example.local
    puppetdb_port = 8080
-   puppetdb_ssl_verify = True
-   puppetdb_key = None
+   puppetdb_ssl_verify = path/to/authority
+   puppetdb_key = path/to/key
    puppetdb_cert = path/to/cert
-   puppetdb_proto = None
+   puppetdb_proto = https
 
