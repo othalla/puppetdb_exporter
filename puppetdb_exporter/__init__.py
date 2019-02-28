@@ -13,6 +13,10 @@ def _loop() -> None:
         metrics.join()
 
 
-if __name__ == '__main__':
+def main() -> None:
     start_http_server(8000)
     _loop()
+
+
+if __name__ == '__main__':
+    main()
