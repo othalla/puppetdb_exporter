@@ -19,4 +19,4 @@ def _get_puppetdb_connexion() -> BaseAPI:
 
 def get_nodes() -> Union[Any, Iterator[Node]]:
     database = _get_puppetdb_connexion()
-    return database.nodes()
+    return database.nodes(with_status=True)
