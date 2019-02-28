@@ -7,7 +7,7 @@ from puppetdb_exporter.config import get_config
 
 
 def _get_puppetdb_connexion() -> BaseAPI:
-    config = get_config()
+    config = get_config()['main']
     return connect(host=config['PUPPETDB_HOST'],
                    port=config['PUPPETDB_PORT'],
                    ssl_verify=config['PUPPETDB_SSL_VERIFY'],
