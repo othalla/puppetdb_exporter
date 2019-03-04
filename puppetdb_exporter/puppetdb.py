@@ -1,6 +1,6 @@
-from typing import Any, Union, Iterator
+from typing import Any, Iterator, Union
 
-from pypuppetdb import connect, BaseAPI
+from pypuppetdb import BaseAPI, connect
 from pypuppetdb.types import Node
 
 from puppetdb_exporter.config import get_config

@@ -1,11 +1,10 @@
-from typing import Callable, Iterator
 from threading import Thread
+from typing import Callable, Iterator
 
-from pypuppetdb.types import Node
 from prometheus_client import Gauge
+from pypuppetdb.types import Node
 
 from puppetdb_exporter.puppetdb import get_nodes
-
 
 GAUGE_NODES = Gauge('puppetdb_nodes_registered', 'Description of gauge')
 GAUGE_STATUS = Gauge('puppetdb_nodes_status', 'desc', labelnames=['status'])
