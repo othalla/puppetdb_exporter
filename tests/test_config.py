@@ -3,9 +3,8 @@ from unittest.mock import create_autospec, patch
 
 import pytest
 
-from puppetdb_exporter.config import (get_config,
-                                      ConfigurationException,
-                                      SETTINGS)
+from puppetdb_exporter.config import (SETTINGS, ConfigurationException,
+                                      get_config)
 
 
 class TestConfig:

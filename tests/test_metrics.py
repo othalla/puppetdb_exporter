@@ -1,8 +1,8 @@
 from unittest.mock import MagicMock
+
 from prometheus_client import REGISTRY
 
 from puppetdb_exporter.metrics import MetricsRender
-
 
 NODE1 = MagicMock(name='node1', status='unchanged')
 NODE2 = MagicMock(name='node2', status='changed')
