@@ -2,6 +2,8 @@
 Puppetdb Exporter
 =================
 
+Prometheus exporter for PuppetDB.
+
 Install
 -------
 
