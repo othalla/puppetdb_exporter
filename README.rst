@@ -4,6 +4,8 @@ Puppetdb Exporter
 
 .. image:: https://travis-ci.org/othalla/puppetdb_exporter.svg?branch=master
     :target: https://travis-ci.org/othalla/puppetdb_exporter
+.. image:: https://codecov.io/gh/othalla/puppetdb_exporter/branch/master/graph/badge.svg
+  :target: https://codecov.io/gh/othalla/puppetdb_exporter
 
 Prometheus exporter for PuppetDB.
 
