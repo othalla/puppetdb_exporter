@@ -2,6 +2,9 @@
 Puppetdb Exporter
 =================
 
+.. image:: https://travis-ci.org/othalla/puppetdb_exporter.svg?branch=master
+    :target: https://travis-ci.org/othalla/puppetdb_exporter
+
 Prometheus exporter for PuppetDB.
 
 Install
