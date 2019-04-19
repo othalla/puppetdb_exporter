@@ -18,9 +18,9 @@ class MetricsRender(Thread):
         self._node_provider = node_provider
 
     def run(self) -> None:
-        self._generate_metrics()
+        self._generate_node_metrics()
 
-    def _generate_metrics(self) -> None:
+    def _generate_node_metrics(self) -> None:
         node_number = 0
         nodes = self._node_provider()
         status_values = {
