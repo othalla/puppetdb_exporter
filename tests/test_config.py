@@ -30,12 +30,14 @@ class TestConfiguration:
                 _ = Configuration()
 
     @staticmethod
-    def test_it_load_setting_new():
+    def test_it_load_settings():
         with NamedTemporaryFile() as temp_file:
             with open(temp_file.name, 'w') as file_descriptor:
                 file_descriptor.write(
                     '[puppetdb]\n'
-                    'host = lol\n')
+                    'host = lol\n'
+                    'port = 8081\n')
             with patch.dict(environ, {'CONFIG_FILE': temp_file.name}):
                 configuration = Configuration()
                 assert configuration.puppetdb_host == 'lol'
+                assert configuration.puppetdb_port == 8081

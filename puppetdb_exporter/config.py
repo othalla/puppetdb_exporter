@@ -27,5 +27,5 @@ class Configuration():
         return self._configuration.get('puppetdb', 'host')
 
     @property
-    def puppetdb_port(self) -> str:
-        return self._configuration.get('puppetdb', 'port')
+    def puppetdb_port(self) -> int:
+        return self._configuration.getint('puppetdb', 'port')
