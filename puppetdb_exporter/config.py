@@ -29,3 +29,7 @@ class Configuration():
     @property
     def puppetdb_port(self) -> int:
         return self._configuration.getint('puppetdb', 'port')
+
+    @property
+    def puppetdb_ssl_verify(self) -> str:
+        return self._configuration.get('puppetdb', 'ssl_verify')

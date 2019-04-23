@@ -1,7 +1,6 @@
-from os import environ, path
+from os import environ
 from tempfile import NamedTemporaryFile
 from unittest.mock import patch
-from pathlib import Path
 
 import pytest
 
@@ -36,7 +35,8 @@ class TestConfiguration:
                 file_descriptor.write(
                     '[puppetdb]\n'
                     'host = lol\n'
-                    'port = 8081\n')
+                    'port = 8081\n'
+                    'ssl_verify = /path/to/ca.pem\n')
             with patch.dict(environ, {'CONFIG_FILE': temp_file.name}):
                 configuration = Configuration()
                 assert configuration.puppetdb_host == 'lol'
