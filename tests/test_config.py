@@ -1,14 +1,11 @@
 from os import environ, path
+from tempfile import NamedTemporaryFile
 from unittest.mock import patch
 from pathlib import Path
 
 import pytest
 
 from puppetdb_exporter.config import (ConfigurationException, Configuration)
-
-FIXTURE_CONFIG = path.join(Path(__file__).absolute().parent,
-                           'fixtures',
-                           'config.ini')
 
 
 class TestConfiguration:
@@ -33,7 +30,12 @@ class TestConfiguration:
                 _ = Configuration()
 
     @staticmethod
-    def test_it_load_setting():
-        with patch.dict(environ, {'CONFIG_FILE': FIXTURE_CONFIG}):
-            configuration = Configuration()
-            assert configuration.puppetdb_host == 'somehost'
+    def test_it_load_setting_new():
+        with NamedTemporaryFile() as temp_file:
+            with open(temp_file.name, 'w') as file_descriptor:
+                file_descriptor.write(
+                    '[puppetdb]\n'
+                    'host = lol\n')
+            with patch.dict(environ, {'CONFIG_FILE': temp_file.name}):
+                configuration = Configuration()
+                assert configuration.puppetdb_host == 'lol'
