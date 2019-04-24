@@ -5,6 +5,7 @@ from prometheus_client import Gauge
 from pypuppetdb.types import Node
 
 from puppetdb_exporter.puppetdb import get_nodes
+from puppetdb_exporter.config import Configuration
 
 GAUGE_NODES = Gauge('puppetdb_nodes_registered', 'Description of gauge')
 GAUGE_STATUS = Gauge('puppetdb_nodes_status', 'desc', labelnames=['status'])
@@ -13,8 +14,10 @@ GAUGE_STATUS = Gauge('puppetdb_nodes_status', 'desc', labelnames=['status'])
 class MetricsRender(Thread):
     def __init__(
             self,
+            configuration: Configuration,
             node_provider: Callable[[], Iterator[Node]] = get_nodes) -> None:
         Thread.__init__(self)
+        self._configuration = configuration
         self._node_provider = node_provider
 
     def run(self) -> None:
