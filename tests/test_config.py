@@ -4,7 +4,7 @@ from unittest.mock import patch
 
 import pytest
 
-from puppetdb_exporter.config import (ConfigurationException, Configuration)
+from puppetdb_exporter.config import Configuration, ConfigurationException
 
 
 class TestConfiguration:
