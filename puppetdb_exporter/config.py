@@ -1,4 +1,4 @@
-from configparser import ConfigParser, Error
+from configparser import ConfigParser
 from os import environ
 
 
