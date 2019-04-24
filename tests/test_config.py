@@ -29,7 +29,7 @@ class TestConfiguration:
                 _ = Configuration()
 
     @staticmethod
-    def test_it_load_settings():
+    def test_it_load_mandatory_settings():
         with NamedTemporaryFile() as temp_file:
             with open(temp_file.name, 'w') as file_descriptor:
                 file_descriptor.write(
