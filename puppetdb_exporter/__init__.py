@@ -3,11 +3,13 @@ import time
 from prometheus_client import start_http_server
 
 from puppetdb_exporter.metrics import MetricsRender
+from puppetdb_exporter.config import Configuration
 
 
 def _loop() -> None:
+    configuration = Configuration()
     while True:
-        metrics = MetricsRender()
+        metrics = MetricsRender(configuration=configuration)
         metrics.start()
         time.sleep(15)
         metrics.join()
