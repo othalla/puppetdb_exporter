@@ -2,8 +2,8 @@ import time
 
 from prometheus_client import start_http_server
 
-from puppetdb_exporter.metrics import MetricsRender
 from puppetdb_exporter.config import Configuration
+from puppetdb_exporter.metrics import MetricsRender
 
 
 def _loop() -> None:
