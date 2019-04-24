@@ -13,7 +13,7 @@ BAD_NODE = MagicMock(name='node3', status='unknown')
 class TestMetricsRender:
     @staticmethod
     def test_it_set_the_nodes_registered_gauge_metric():
-        get_nodes = MagicMock(name='get_config',
+        get_nodes = MagicMock(name='get_nodes',
                               return_value=[NODE1, NODE2])
         metrics = MetricsRender(configuration=MagicMock(name='Configuration'),
                                 node_provider=get_nodes)
@@ -22,7 +22,7 @@ class TestMetricsRender:
 
     @staticmethod
     def test_it_set_the_nodes_by_status_gauge_metric():
-        get_nodes = MagicMock(name='get_config',
+        get_nodes = MagicMock(name='get_nodes',
                               return_value=[NODE1, NODE2, NODE3])
         metrics = MetricsRender(configuration=MagicMock(name='Configuration'),
                                 node_provider=get_nodes)
@@ -36,7 +36,7 @@ class TestMetricsRender:
 
     @staticmethod
     def test_with_unknown_node_status():
-        get_nodes = MagicMock(name='get_config',
+        get_nodes = MagicMock(name='get_nodes',
                               return_value=[BAD_NODE])
         metrics = MetricsRender(configuration=MagicMock(name='Configuration'),
                                 node_provider=get_nodes)
