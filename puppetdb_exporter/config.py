@@ -1,8 +1,5 @@
-from configparser import ConfigParser
+from configparser import ConfigParser, Error
 from os import environ
-
-CONFIG_FILE_ERROR_MESSAGE = ('No configuration file provided. '
-                             'You must set CONFIG_FILE environment variable.')
 
 
 class ConfigurationException(Exception):
@@ -33,3 +30,15 @@ class Configuration():
     @property
     def puppetdb_ssl_verify(self) -> str:
         return self._configuration.get('puppetdb', 'ssl_verify')
+
+    @property
+    def puppetdb_ssl_key(self) -> str:
+        return self._configuration.get('puppetdb', 'ssl_key')
+
+    @property
+    def puppetdb_ssl_cert(self) -> str:
+        return self._configuration.get('puppetdb', 'ssl_cert')
+
+    @property
+    def puppetdb_proto(self) -> str:
+        return self._configuration.get('puppetdb', 'proto')

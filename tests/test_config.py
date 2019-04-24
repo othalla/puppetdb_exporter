@@ -36,8 +36,15 @@ class TestConfiguration:
                     '[puppetdb]\n'
                     'host = lol\n'
                     'port = 8081\n'
-                    'ssl_verify = /path/to/ca.pem\n')
+                    'ssl_verify = /path/to/ca.pem\n'
+                    'ssl_key = /path/to/key\n'
+                    'ssl_cert = /path/to/cert\n'
+                    'proto = https\n')
             with patch.dict(environ, {'CONFIG_FILE': temp_file.name}):
                 configuration = Configuration()
                 assert configuration.puppetdb_host == 'lol'
                 assert configuration.puppetdb_port == 8081
+                assert configuration.puppetdb_ssl_verify == '/path/to/ca.pem'
+                assert configuration.puppetdb_ssl_key == '/path/to/key'
+                assert configuration.puppetdb_ssl_cert == '/path/to/cert'
+                assert configuration.puppetdb_proto == 'https'
