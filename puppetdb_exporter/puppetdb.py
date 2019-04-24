@@ -15,6 +15,6 @@ def _get_puppetdb_connexion(configuration: Configuration) -> BaseAPI:
                    protocol=configuration.puppetdb_proto)
 
 
-def get_nodes() -> Union[Any, Iterator[Node]]:
-    database = _get_puppetdb_connexion()
+def get_nodes(configuration: Configuration) -> Union[Any, Iterator[Node]]:
+    database = _get_puppetdb_connexion(configuration)
     return database.nodes(with_status=True)
