@@ -60,3 +60,12 @@ class TestConfiguration:
                 configuration = Configuration()
                 assert configuration.fact_list == ['kernelversion',
                                                    'fact.nested']
+
+    @staticmethod
+    def test_without_optional_fact_list_setting():
+        with NamedTemporaryFile() as temp_file:
+            with open(temp_file.name, 'w') as file_descriptor:
+                file_descriptor.write('\n')
+            with patch.dict(environ, {'CONFIG_FILE': temp_file.name}):
+                configuration = Configuration()
+                assert configuration.fact_list == []

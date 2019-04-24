@@ -1,4 +1,4 @@
-from configparser import ConfigParser
+from configparser import ConfigParser, Error
 from os import environ
 from typing import List
 
@@ -46,5 +46,8 @@ class Configuration():
 
     @property
     def fact_list(self) -> List[str]:
-        raw_fact_list = self._configuration.get('optional', 'fact_list')
+        try:
+            raw_fact_list = self._configuration.get('optional', 'fact_list')
+        except Error:
+            return []
         return raw_fact_list.split(' ')
