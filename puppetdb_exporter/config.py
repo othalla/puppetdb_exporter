@@ -1,5 +1,6 @@
 from configparser import ConfigParser
 from os import environ
+from typing import List
 
 
 class ConfigurationException(Exception):
@@ -42,3 +43,8 @@ class Configuration():
     @property
     def puppetdb_proto(self) -> str:
         return self._configuration.get('puppetdb', 'proto')
+
+    @property
+    def fact_list(self) -> List[str]:
+        raw_fact_list = self._configuration.get('optional', 'fact_list')
+        return raw_fact_list.split(' ')

@@ -48,3 +48,15 @@ class TestConfiguration:
                 assert configuration.puppetdb_ssl_key == '/path/to/key'
                 assert configuration.puppetdb_ssl_cert == '/path/to/cert'
                 assert configuration.puppetdb_proto == 'https'
+
+    @staticmethod
+    def test_with_optional_fact_list_setting():
+        with NamedTemporaryFile() as temp_file:
+            with open(temp_file.name, 'w') as file_descriptor:
+                file_descriptor.write(
+                    '[optional]\n'
+                    'fact_list = kernelversion fact.nested \n')
+            with patch.dict(environ, {'CONFIG_FILE': temp_file.name}):
+                configuration = Configuration()
+                assert configuration.fact_list == ['kernelversion',
+                                                   'fact.nested']
