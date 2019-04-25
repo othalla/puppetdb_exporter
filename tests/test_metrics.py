@@ -15,7 +15,8 @@ class TestMetricsRender:
     def test_it_set_the_nodes_registered_gauge_metric():
         get_nodes = MagicMock(name='get_nodes',
                               return_value=[NODE1, NODE2])
-        metrics = MetricsRender(configuration=MagicMock(name='Configuration'),
+        metrics = MetricsRender(configuration=MagicMock(name='Configuration',
+                                                        fact_list=[]),
                                 node_provider=get_nodes)
         metrics.run()
         assert REGISTRY.get_sample_value('puppetdb_nodes_registered') == 2
@@ -24,7 +25,8 @@ class TestMetricsRender:
     def test_it_set_the_nodes_by_status_gauge_metric():
         get_nodes = MagicMock(name='get_nodes',
                               return_value=[NODE1, NODE2, NODE3])
-        metrics = MetricsRender(configuration=MagicMock(name='Configuration'),
+        metrics = MetricsRender(configuration=MagicMock(name='Configuration',
+                                                        fact_list=[]),
                                 node_provider=get_nodes)
         metrics.run()
         assert REGISTRY.get_sample_value('puppetdb_nodes_status',
@@ -38,6 +40,22 @@ class TestMetricsRender:
     def test_with_unknown_node_status():
         get_nodes = MagicMock(name='get_nodes',
                               return_value=[BAD_NODE])
-        metrics = MetricsRender(configuration=MagicMock(name='Configuration'),
+        metrics = MetricsRender(configuration=MagicMock(name='Configuration',
+                                                        fact_list=[]),
                                 node_provider=get_nodes)
         metrics.run()
+
+    @staticmethod
+    def test_with_an_optional_fact_set_gauge_metric():
+        get_nodes = MagicMock(name='get_nodes', return_value=[NODE1, NODE2])
+        get_fact = MagicMock(name='get_fact', return_value=[
+            {"value": "3.10.250", "count": 10}
+        ])
+        configuration = MagicMock(name='configuration',
+                                  fact_list=["kernelrelease"])
+        metrics = MetricsRender(configuration=configuration,
+                                node_provider=get_nodes,
+                                fact_provider=get_fact)
+        metrics.run()
+        assert REGISTRY.get_sample_value('puppetdb_fact_kernelrelease',
+                                         {'value': '3.10.250'}) == 10
