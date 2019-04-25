@@ -30,8 +30,6 @@ class MetricsRender(Thread):
     def run(self) -> None:
         self._generate_node_metrics()
         if self._configuration.fact_list:
-            print('fact list')
-            print(self._configuration.fact_list)
             self._generate_facts_metrics()
 
     def _generate_facts_metrics(self) -> None:
