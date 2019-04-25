@@ -41,7 +41,7 @@ class MetricsRender(Thread):
             'some gauge',
             labelnames=['value'])
         GAUGE_FACTS[self._configuration.fact_list[0]].labels(
-            value=fact[0]["value"]).set(fact[0]["count"])
+            value=fact[0]['value']).set(fact[0]['count'])
 
     def _generate_node_metrics(self) -> None:
         node_number = 0
