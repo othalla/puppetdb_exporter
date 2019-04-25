@@ -1,9 +1,13 @@
-from typing import Any, Dict, Iterator, Union
+from typing import Any, Iterator, Union
 
 from pypuppetdb import BaseAPI, connect
 from pypuppetdb.types import Node
 
 from puppetdb_exporter.config import Configuration
+
+
+class FactNotFoundException(Exception):
+    pass
 
 
 def _get_puppetdb_connexion(configuration: Configuration) -> BaseAPI:
@@ -20,7 +24,8 @@ def get_nodes(configuration: Configuration) -> Union[Any, Iterator[Node]]:
     return database.nodes(with_status=True)
 
 
-def get_fact_path(path: str, configuration: Configuration) -> Dict[str, Any]:
+def check_fact_path(path: str, configuration: Configuration) -> None:
     database = _get_puppetdb_connexion(configuration)
-    formatted_fact_path = '"' + path.replace('.', '", "') + '"'
-    return database.fact_paths(query=f'["=", "path", [{formatted_fact_path}]]')
+    string_fact_path = '"' + path.replace('.', '", "') + '"'
+    if not database.fact_paths(query=f'["=", "path", [{string_fact_path}]]'):
+        raise FactNotFoundException
