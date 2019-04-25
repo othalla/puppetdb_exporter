@@ -57,3 +57,4 @@ TODO
 - Create Enum object for status
 - Create Class to init & store prometheus metrics
 - Global refactors
+- Check if pypuppetdb lib is realy needed as not much maintained, and quite eavy for a simple request.get on /nodes & /fact_contents + /facts_path
