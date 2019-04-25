@@ -44,4 +44,7 @@ Example
    puppetdb_key = path/to/key
    puppetdb_cert = path/to/cert
    puppetdb_proto = https
+   [optional]
+   fact_list = kernelrelease values.architecture
+
 
