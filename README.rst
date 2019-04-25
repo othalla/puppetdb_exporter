@@ -48,3 +48,12 @@ Example
    fact_list = kernelrelease values.architecture
 
 
+
+TODO
+~~~~
+
+- Create Fact object to store puppet fact information (name, value, count)
+- Create Node object to store node information (certname, status)
+- Create Enum object for status
+- Create Class to init & store prometheus metrics
+- Global refactors
