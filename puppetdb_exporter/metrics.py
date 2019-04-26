@@ -28,7 +28,7 @@ class MetricsRender(Thread):
         self._fact_provider = fact_provider
 
     def run(self) -> None:
-        self._generate_node_metrics()
+        self._generate_nodes_metrics()
         if self._configuration.fact_list:
             self._generate_facts_metrics()
 
@@ -46,7 +46,7 @@ class MetricsRender(Thread):
                 GAUGE_FACTS[formatted_fact].labels(
                     value=fact['value']).set(fact['count'])
 
-    def _generate_node_metrics(self) -> None:
+    def _generate_nodes_metrics(self) -> None:
         node_number = 0
         nodes = self._node_provider(self._configuration)
         status_values = {
