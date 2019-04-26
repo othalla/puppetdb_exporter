@@ -24,29 +24,22 @@ Install
 Configuration
 -------------
 
-Configuration reads one of these files in this order:
-
-- `/etc/puppetdb_exporter/config.ini`
-- `.config/puppetdb_exporter/config.ini`
-- `config.ini`
-
-You can specify a custom config file by setting the CONFIG_FILE environment var.
+Exporter reads config from `CONFIG_FILE` environment variable.
 
 Example
 ~~~~~~~
 
 .. code-block:: ini
 
-   [main]
-   puppetdb_host = puppetdb.example.local
-   puppetdb_port = 8080
-   puppetdb_ssl_verify = path/to/authority
-   puppetdb_key = path/to/key
-   puppetdb_cert = path/to/cert
-   puppetdb_proto = https
+   [puppetdb]
+   host = puppetdb.example.local
+   port = 8080
+   ssl_verify = path/to/authority
+   key = path/to/key
+   cert = path/to/cert
+   proto = https
    [optional]
    fact_list = kernelrelease values.architecture
-
 
 
 TODO
