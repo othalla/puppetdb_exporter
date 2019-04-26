@@ -72,3 +72,14 @@ class TestMetricsRender:
                                          {'value': 'foo'}) == 1
         assert REGISTRY.get_sample_value('puppetdb_fact_os_name',
                                          {'value': 'bar'}) == 5
+
+    @staticmethod
+    def test_with_an_optional_fact_but_empty_puppetdb_response():
+        get_nodes = MagicMock(name='get_nodes', return_value=[NODE1, NODE2])
+        get_fact = MagicMock(name='get_fact', return_value=[])
+        configuration = MagicMock(name='configuration', fact_list=["badfact"])
+        metrics = MetricsRender(configuration=configuration,
+                                node_provider=get_nodes,
+                                fact_provider=get_fact)
+        metrics.run()
+        assert REGISTRY.get_sample_value('puppetdb_fact_badfact') is None
