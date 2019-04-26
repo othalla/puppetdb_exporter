@@ -34,14 +34,15 @@ class MetricsRender(Thread):
 
     def _generate_facts_metrics(self) -> None:
         global GAUGE_FACTS
-        fact = self._fact_provider(self._configuration.fact_list[0],
-                                   self._configuration)
+        facts = self._fact_provider(self._configuration.fact_list[0],
+                                    self._configuration)
         GAUGE_FACTS[self._configuration.fact_list[0]] = Gauge(
             f'puppetdb_fact_{self._configuration.fact_list[0]}',
             'some gauge',
             labelnames=['value'])
-        GAUGE_FACTS[self._configuration.fact_list[0]].labels(
-            value=fact[0]['value']).set(fact[0]['count'])
+        for fact in facts:
+            GAUGE_FACTS[self._configuration.fact_list[0]].labels(
+                value=fact['value']).set(fact['count'])
 
     def _generate_node_metrics(self) -> None:
         node_number = 0
