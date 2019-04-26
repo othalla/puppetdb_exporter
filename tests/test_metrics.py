@@ -59,7 +59,7 @@ class TestMetricsRender:
             ]
         ])
         configuration = MagicMock(name='configuration',
-                                  fact_list=["kernelrelease", "osname"])
+                                  fact_list=["kernelrelease", "os.name"])
         metrics = MetricsRender(configuration=configuration,
                                 node_provider=get_nodes,
                                 fact_provider=get_fact)
@@ -68,7 +68,7 @@ class TestMetricsRender:
                                          {'value': '3.10.250'}) == 10
         assert REGISTRY.get_sample_value('puppetdb_fact_kernelrelease',
                                          {'value': '3.10.290'}) == 15
-        assert REGISTRY.get_sample_value('puppetdb_fact_osname',
+        assert REGISTRY.get_sample_value('puppetdb_fact_os_name',
                                          {'value': 'foo'}) == 1
-        assert REGISTRY.get_sample_value('puppetdb_fact_osname',
+        assert REGISTRY.get_sample_value('puppetdb_fact_os_name',
                                          {'value': 'bar'}) == 5
