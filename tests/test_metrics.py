@@ -48,12 +48,18 @@ class TestMetricsRender:
     @staticmethod
     def test_with_an_optional_fact_set_gauge_metric():
         get_nodes = MagicMock(name='get_nodes', return_value=[NODE1, NODE2])
-        get_fact = MagicMock(name='get_fact', return_value=[
-            {"value": "3.10.250", "count": 10},
-            {"value": "3.10.290", "count": 15}
+        get_fact = MagicMock(name='get_fact', side_effect=[
+            [
+                {"value": "3.10.250", "count": 10},
+                {"value": "3.10.290", "count": 15}
+            ],
+            [
+                {"value": "foo", "count": 1},
+                {"value": "bar", "count": 5}
+            ]
         ])
         configuration = MagicMock(name='configuration',
-                                  fact_list=["kernelrelease"])
+                                  fact_list=["kernelrelease", "osname"])
         metrics = MetricsRender(configuration=configuration,
                                 node_provider=get_nodes,
                                 fact_provider=get_fact)
@@ -62,3 +68,7 @@ class TestMetricsRender:
                                          {'value': '3.10.250'}) == 10
         assert REGISTRY.get_sample_value('puppetdb_fact_kernelrelease',
                                          {'value': '3.10.290'}) == 15
+        assert REGISTRY.get_sample_value('puppetdb_fact_osname',
+                                         {'value': 'foo'}) == 1
+        assert REGISTRY.get_sample_value('puppetdb_fact_osname',
+                                         {'value': 'bar'}) == 5
