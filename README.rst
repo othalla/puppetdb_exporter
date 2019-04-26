@@ -52,6 +52,7 @@ Example
 TODO
 ~~~~
 
+- Refactor configuration keys, add example & doc in README
 - Create Fact object to store puppet fact information (name, value, count)
 - Create Node object to store node information (certname, status)
 - Create Enum object for status
