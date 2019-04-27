@@ -46,7 +46,7 @@ TODO
 ~~~~
 
 - Refactor configuration keys, add example & doc in README -> Done
-- Create Fact object to store puppet fact information (name, value, count)
+- Create Fact object to store puppet fact information (name, value, count) -> IN PROGRESS
 - Create Node object to store node information (certname, status)
 - Create Enum object for status
 - Create Class to init & store prometheus metrics
