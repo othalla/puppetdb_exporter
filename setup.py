@@ -1,11 +1,11 @@
 import setuptools
 
-version = "0.0.3"
+VERSION = "1.0.0"
 
 
 setuptools.setup(
     name="puppetdb_exporter",
-    version=version,
+    version=VERSION,
     description="Prometheus puppetdb exporter",
     author="Florian Chardin",
     author_email="othalla.lf@gmail.com",
