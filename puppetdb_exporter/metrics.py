@@ -37,10 +37,11 @@ class MetricsRender(Thread):
         for fact in self._configuration.fact_list:
             formatted_fact = fact.replace('.', '_')
             fact_results = self._fact_provider(fact, self._configuration)
-            GAUGE_FACTS[formatted_fact] = Gauge(
-                f'puppetdb_fact_{formatted_fact}',
-                'some gauge',
-                labelnames=['value'])
+            if formatted_fact not in GAUGE_FACTS:
+                GAUGE_FACTS[formatted_fact] = Gauge(
+                    f'puppetdb_fact_{formatted_fact}',
+                    'some gauge',
+                    labelnames=['value'])
             for fact_result in fact_results:
                 GAUGE_FACTS[formatted_fact].labels(
                     value=fact_result['value']).set(fact_result['count'])
