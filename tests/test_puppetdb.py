@@ -2,8 +2,28 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
+from pypuppetdb.types import Node as PuppetDBNode
+
 from puppetdb_exporter.puppetdb import (FactNotFoundException, check_fact_path,
-                                        get_fact)
+                                        get_fact, get_nodes)
+from puppetdb_exporter.node import Node, Status
+
+
+class TestGetNodes:
+    @staticmethod
+    def test_it_returns_a_list_of_nodes():
+        with patch('puppetdb_exporter.puppetdb.connect') as mock_connect:
+            mock_connect.return_value.nodes.return_value = iter([
+                PuppetDBNode(MagicMock(name='api'),
+                             'node1',
+                             status_report='changed'),
+                PuppetDBNode(MagicMock(name='api'),
+                             'node2',
+                             status_report='changed')
+            ])
+            nodes = get_nodes(configuration=MagicMock(name='configuration'))
+            assert Node('node1', Status.CHANGED) in nodes
+            assert Node('node2', Status.CHANGED) in nodes
 
 
 class TestChecKFactPath:
