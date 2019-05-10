@@ -1,12 +1,11 @@
 from unittest.mock import MagicMock, patch
 
 import pytest
-
 from pypuppetdb.types import Node as PuppetDBNode
 
+from puppetdb_exporter.node import Node, Status
 from puppetdb_exporter.puppetdb import (FactNotFoundException, check_fact_path,
                                         get_fact, get_nodes)
-from puppetdb_exporter.node import Node, Status
 
 
 class TestGetNodes:

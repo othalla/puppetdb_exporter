@@ -1,5 +1,5 @@
 from threading import Thread
-from typing import Callable, Dict, Iterator, List, Union
+from typing import Callable, Dict, List, Union
 
 from prometheus_client import Gauge
 from pypuppetdb.types import Node
@@ -9,7 +9,7 @@ from puppetdb_exporter.puppetdb import get_fact, get_nodes
 
 GAUGE_NODES = Gauge('puppetdb_nodes_registered', 'Description of gauge')
 GAUGE_STATUS = Gauge('puppetdb_nodes_status', 'desc', labelnames=['status'])
-GAUGE_FACTS = {}
+GAUGE_FACTS: Dict[str, Gauge] = {}
 
 
 class MetricsRender(Thread):
@@ -18,7 +18,7 @@ class MetricsRender(Thread):
             configuration: Configuration,
             node_provider: Callable[
                 [Configuration],
-                Iterator[Node]] = get_nodes,
+                List[Node]] = get_nodes,
             fact_provider: Callable[
                 [str, Configuration],
                 List[Dict[str, Union[str, int]]]] = get_fact) -> None:
