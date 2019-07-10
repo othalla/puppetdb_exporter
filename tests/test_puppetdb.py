@@ -5,7 +5,7 @@ from pypuppetdb.types import Node as PuppetDBNode
 
 from puppetdb_exporter.node import Node, Status
 from puppetdb_exporter.puppetdb import (FactNotFoundException, check_fact_path,
-                                        get_fact, get_nodes)
+                                        get_fact, get_nodes, get_environments)
 
 
 class TestGetNodes:
@@ -69,3 +69,16 @@ class TestGetFact:
             result = get_fact('fact.path',
                               configuration=MagicMock(name='configurationn'))
             assert result == [{"value": "one", "count": 12}]
+
+
+class TestGetEnvironments:
+    @staticmethod
+    def test_it_returns_the_list_of_all_puppet_environments():
+        with patch('puppetdb_exporter.puppetdb.connect') as mock_connect:
+            mock_connect.return_value.environments.return_value = [
+                {"name": "env1"},
+                {"name": "env2"}
+            ]
+            result = get_environments(
+                configuration=MagicMock(name='configurationn'))
+            assert result == ["env1", "env2"]

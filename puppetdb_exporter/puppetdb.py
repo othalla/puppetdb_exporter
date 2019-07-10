@@ -43,3 +43,9 @@ def get_fact(path: str, configuration: Configuration) -> List[
              f'["=", "path", [{string_fact_path}]], '
              '["group_by", "value"]]')
     return database.fact_contents(query=query)
+
+
+def get_environments(configuration: Configuration) -> List[str]:
+    database = _get_puppetdb_connexion(configuration)
+    environments = database.environments()
+    return [environment['name'] for environment in environments]
