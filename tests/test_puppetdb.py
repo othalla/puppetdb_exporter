@@ -20,7 +20,8 @@ class TestGetNodes:
                              'node2',
                              status_report='changed')
             ])
-            nodes = get_nodes(configuration=MagicMock(name='configuration'))
+            nodes = get_nodes('env1',
+                              configuration=MagicMock(name='configuration'))
             assert Node('node1', Status.CHANGED) in nodes
             assert Node('node2', Status.CHANGED) in nodes
 

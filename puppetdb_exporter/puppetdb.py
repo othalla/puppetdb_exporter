@@ -1,6 +1,7 @@
 from typing import Dict, List, Union
 
 from pypuppetdb import BaseAPI, connect
+from pypuppetdb.QueryBuilder import AndOperator, EqualsOperator
 
 from puppetdb_exporter.config import Configuration
 from puppetdb_exporter.node import Node, Status
@@ -19,10 +20,13 @@ def _get_puppetdb_connexion(configuration: Configuration) -> BaseAPI:
                    protocol=configuration.puppetdb_proto)
 
 
-def get_nodes(configuration: Configuration) -> List[Node]:
+def get_nodes(environment: str, configuration: Configuration) -> List[Node]:
     database = _get_puppetdb_connexion(configuration)
     result = []
-    nodes = database.nodes(with_status=True)
+    query = AndOperator()
+    query.add(EqualsOperator('catalog_environment', environment))
+    query.add(EqualsOperator('facts_environment', environment))
+    nodes = database.nodes(with_status=True, query=query)
     for node in nodes:
         result.append(Node(node.name, Status(node.status)))
     return result
