@@ -5,7 +5,7 @@ from pypuppetdb.types import Node as PuppetDBNode
 
 from puppetdb_exporter.node import Node, Status
 from puppetdb_exporter.puppetdb import (FactNotFoundException, check_fact_path,
-                                        get_fact, get_nodes, get_environments)
+                                        get_environments, get_fact, get_nodes)
 
 
 class TestGetNodes:

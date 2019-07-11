@@ -5,7 +5,7 @@ from prometheus_client import Gauge
 from pypuppetdb.types import Node
 
 from puppetdb_exporter.config import Configuration
-from puppetdb_exporter.puppetdb import get_fact, get_nodes, get_environments
+from puppetdb_exporter.puppetdb import get_environments, get_fact, get_nodes
 
 GAUGE_NODES = Gauge('puppetdb_nodes_registered',
                     'Description of gauge',
