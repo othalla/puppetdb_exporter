@@ -25,6 +25,21 @@ class TestGetNodes:
             assert Node('node1', Status.CHANGED) in nodes
             assert Node('node2', Status.CHANGED) in nodes
 
+    @staticmethod
+    def  test_with_unknown_node_status():
+        with patch('puppetdb_exporter.puppetdb.connect') as mock_connect:
+            mock_connect.return_value.nodes.return_value = iter([
+                PuppetDBNode(MagicMock(name='api'),
+                             'node1',
+                             status_report='changed'),
+                PuppetDBNode(MagicMock(name='api'),
+                             'node2',
+                             status_report='unknown')
+            ])
+            nodes = get_nodes('env1',
+                              configuration=MagicMock(name='configuration'))
+            assert Node('node1', Status.CHANGED) in nodes
+
 
 class TestChecKFactPath:
     @staticmethod

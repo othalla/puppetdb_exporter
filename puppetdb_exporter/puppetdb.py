@@ -28,7 +28,10 @@ def get_nodes(environment: str, configuration: Configuration) -> List[Node]:
     query.add(EqualsOperator('facts_environment', environment))
     nodes = database.nodes(with_status=True, query=query)
     for node in nodes:
-        result.append(Node(node.name, Status(node.status)))
+        try:
+            result.append(Node(node.name, Status(node.status)))
+        except ValueError:
+            continue
     return result
 
 
