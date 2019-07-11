@@ -55,10 +55,12 @@ class TestGetFact:
     def test_it_perform_correct_puppetdb_query():
         with patch('puppetdb_exporter.puppetdb.connect') as mock_connect:
             get_fact('fact.path',
+                     'env1',
                      configuration=MagicMock(name='configurationn'))
             mock_connect.return_value.fact_contents.assert_called_once_with(
                 query=('["extract", [["function", "count"], "value"], '
-                       '["=", "path", ["fact", "path"]], '
+                       '["and", ["=", "path", ["fact", "path"]], '
+                       '["=", "environment", "env1"]], '
                        '["group_by", "value"]]'))
 
     @staticmethod
@@ -68,6 +70,7 @@ class TestGetFact:
                 {"value": "one", "count": 12}
             ]
             result = get_fact('fact.path',
+                              'env1',
                               configuration=MagicMock(name='configurationn'))
             assert result == [{"value": "one", "count": 12}]
 

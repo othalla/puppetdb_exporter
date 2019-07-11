@@ -39,12 +39,14 @@ def check_fact_path(path: str, configuration: Configuration) -> None:
         raise FactNotFoundException
 
 
-def get_fact(path: str, configuration: Configuration) -> List[
-        Dict[str, Union[str, int]]]:
+def get_fact(path: str,
+             environment: str,
+             configuration: Configuration) -> List[Dict[str, Union[str, int]]]:
     database = _get_puppetdb_connexion(configuration)
     string_fact_path = '"' + path.replace('.', '", "') + '"'
     query = ('["extract", [["function", "count"], "value"], '
-             f'["=", "path", [{string_fact_path}]], '
+             f'["and", ["=", "path", [{string_fact_path}]], '
+             f'["=", "environment", "{environment}"]], '
              '["group_by", "value"]]')
     return database.fact_contents(query=query)
 
