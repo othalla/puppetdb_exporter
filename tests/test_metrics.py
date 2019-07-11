@@ -3,11 +3,11 @@ from unittest.mock import MagicMock
 from prometheus_client import REGISTRY
 
 from puppetdb_exporter.metrics import MetricsRender
+from puppetdb_exporter.node import Node, Status
 
-NODE1 = MagicMock(name='node1', status='unchanged')
-NODE2 = MagicMock(name='node2', status='changed')
-NODE3 = MagicMock(name='node3', status='changed')
-BAD_NODE = MagicMock(name='node3', status='unknown')
+NODE1 = Node('node1', Status.UNCHANGED)
+NODE2 = Node('node2', Status.CHANGED)
+NODE3 = Node('node3', Status.CHANGED)
 
 
 class TestMetricsRender:
@@ -61,18 +61,6 @@ class TestMetricsRender:
         assert REGISTRY.get_sample_value('puppetdb_nodes_status',
                                          {'status': 'failed',
                                           'environment': 'env1'}) == 0
-
-    @staticmethod
-    def test_with_unknown_node_status():
-        get_nodes = MagicMock(name='get_nodes',
-                              return_value=[BAD_NODE])
-        get_environments = MagicMock(name="get_environments",
-                                     return_value=['env1'])
-        metrics = MetricsRender(configuration=MagicMock(name='Configuration',
-                                                        fact_list=[]),
-                                node_provider=get_nodes,
-                                environments_provider=get_environments)
-        metrics.run()
 
     @staticmethod
     def test_with_an_optional_fact_set_gauge_metric():

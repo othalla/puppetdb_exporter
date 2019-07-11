@@ -73,7 +73,7 @@ class MetricsRender(Thread):
         for node in nodes:
             node_number += 1
             try:
-                status_values[node.status] += 1
+                status_values[node.status.value] += 1
             except KeyError:
                 continue
         GAUGE_NODES.labels(environment=environment).set(node_number)
