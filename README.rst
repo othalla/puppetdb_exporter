@@ -35,8 +35,8 @@ Example
    host = puppetdb.example.local
    port = 8080
    ssl_verify = path/to/authority
-   key = path/to/key
-   cert = path/to/cert
+   ssl_key = path/to/key
+   ssl_cert = path/to/cert
    proto = https
    [optional]
    fact_list = kernelrelease values.architecture
